@@ -6,7 +6,7 @@ dev:
         - ../data:/data/db
     ports:
         - "20000:27017"
-        - "20001:15672"
+        - "20001:5672"
     privileged: true
     tty: true
     stdin_open: true

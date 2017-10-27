@@ -107,3 +107,8 @@ ITEM_PIPELINES = {
 
 # 异步任务队列
 BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+
+try:
+    from .settings_local import *
+except:
+    pass

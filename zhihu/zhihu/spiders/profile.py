@@ -11,6 +11,7 @@ from scrapy.http import Request, FormRequest
 
 from zhihu.items import ZhihuPeopleItem, ZhihuRelationItem
 from zhihu.constants import Gender, People, HEADER
+from zhihu.settings import EMAIL, PASSWORD
 
 
 class ZhihuSipder(CrawlSpider):
@@ -45,8 +46,8 @@ class ZhihuSipder(CrawlSpider):
             meta={'cookiejar': response.meta['cookiejar']},
             formdata={
                 '_xsrf': self.xsrf,
-                'email': 'xxxxxxxxx',
-                'password': 'xxxxxxxxx',
+                'email': EMAIL,
+                'password': PASSWORD,
                 'remember_me': 'true'},
             callback=self.after_login
         )]
@@ -67,14 +68,14 @@ class ZhihuSipder(CrawlSpider):
         解析用户主页
         """
         selector = Selector(response)
-        nickname=selector.xpath(
+        nickname = selector.xpath(
             '//div[@class="title-section ellipsis"]/span[@class="name"]/text()'
         ).extract_first()
-        zhihu_id=os.path.split(response.url)[-1]
-        location=selector.xpath(
+        zhihu_id = os.path.split(response.url)[-1]
+        location = selector.xpath(
             '//span[@class="location item"]/@title'
         ).extract_first()
-        business=selector.xpath(
+        business = selector.xpath(
             '//span[@class="business item"]/@title'
         ).extract_first()
         gender = selector.xpath(
@@ -82,7 +83,7 @@ class ZhihuSipder(CrawlSpider):
         ).extract_first()
         if gender is not None:
             gender = Gender.FEMALE if u'female' in gender else Gender.MALE
-        employment =selector.xpath(
+        employment = selector.xpath(
             '//span[@class="employment item"]/@title'
         ).extract_first()
         position = selector.xpath(
