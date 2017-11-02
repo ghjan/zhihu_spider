@@ -24,6 +24,7 @@ systemctl status rabbitmq-server
 
 pkill mongod && mongod --config config/mongod.conf
 
+cd /zhihu_spider/ && pkill mongod && mongod --config config/mongod.conf && service rabbitmq-server start && celery -A zhihu.tools.async worker --loglevel=info
 ## 流程图
 
 ![流程图](doc/流程图.png)
