@@ -14,7 +14,12 @@ celery -A zhihu.tools.async worker --loglevel=info
 
 ### docker部署
 
-进入zhihu_spider后执行```docker-compose up``` ，进入container后和本地运行方法相同，依次启动mongo、rabbitmq、异步任务、爬虫进程即可。docker采用的image可以参见我的另一个项目[spider-docker](https://github.com/LiuRoy/spider_docker)获取。
+进入zhihu_spider后执行```docker-compose up``` ，进入container后和本地运行方法相同，
+依次启动mongo、rabbitmq、异步任务、爬虫进程即可。
+docker采用的image可以参见我的另一个项目[spider-docker](https://github.com/LiuRoy/spider_docker)获取。
+service rabbitmq-server start
+service rabbitmq-server status
+systemctl status rabbitmq-server
 
 ## 流程图
 

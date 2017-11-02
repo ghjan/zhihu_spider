@@ -1,6 +1,6 @@
 dev:
     image: cajan2/zhihu_spider
-
+    command: cd /zhihu_spider/zhihu/ && service rabbitmq-server start && celery -A zhihu.tools.async worker --loglevel=info
     volumes:
         - ./:/zhihu_spider
         - ../data:/data/db
