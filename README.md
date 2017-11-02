@@ -6,10 +6,11 @@
 
 ### 本地运行
 
-爬虫程序依赖mongo和rabbitmq，因此这两个服务必须正常运行和配置。为了加快下载效率，图片下载是异步任务，因此在启动爬虫进程执行需要启动异步worker，启动方式是进入zhihu_spider/zhihu目录后执行下面命令:
+爬虫程序依赖mongo和rabbitmq，因此这两个服务必须正常运行和配置。为了加快下载效率，图片下载是异步任务，因此在启动爬虫进程执行需要启动异步worker，
+启动方式是进入zhihu_spider/zhihu目录后执行下面命令:
 
 ```
-celery -A zhihu.tools.async worker --loglevel=info
+cd /zhihu_spider/zhihu/ && celery -A zhihu.tools.async worker --loglevel=info
 ```
 
 ### docker部署
@@ -20,6 +21,8 @@ docker采用的image可以参见我的另一个项目[spider-docker](https://git
 service rabbitmq-server start
 service rabbitmq-server status
 systemctl status rabbitmq-server
+
+pkill mongod && mongod --config config/mongod.conf
 
 ## 流程图
 
