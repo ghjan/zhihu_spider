@@ -1,5 +1,5 @@
 dev:
-    image: zhihu_spider
+    image: cajan2/zhihu_spider
 
     volumes:
         - ./:/zhihu_spider
