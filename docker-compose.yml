@@ -1,13 +1,26 @@
-dev:
-    image: zhihu_spider
+version: "2.0"
+services:
+  dev:
+      image: zhihu_spider
 
-    volumes:
-        - ./:/zhihu_spider
-        - ../data:/data/db
-    ports:
-        - "20000:27017"
-        - "20001:5672"
-    privileged: true
-    tty: true
-    stdin_open: true
-    restart: always
+      volumes:
+          - ./:/zhihu_spider
+          - ../data:/data/db
+      ports:
+          - "20000:27017"
+          - "20001:5672"
+      privileged: true
+      tty: true
+      stdin_open: true
+      restart: always
+  real_redis:
+      image: daocloud.io/redis
+      volumes:
+          - ../spider/zhihu_spider/logs/redis/redis.log:/var/log/redis/redis.log
+          - ../spider/zhihu_spider/work_run/redis/:/var/run/redis/
+          - ./deployment/redis/conf.d/redis.conf:/etc/redis/redis.conf
+      command: bash -c "chmod 644 /var/log/redis/redis.log && redis-server /etc/redis/redis.conf"
+      expose:
+          - "6379"
+      enviroments:
+          - TZ=Asia/Shanghai
